@@ -1,0 +1,75 @@
+[
+    {
+        "_id": "60d0fe4f7d6a4a0004c6a6f1",
+        "name": "Classic White T-Shirt",
+        "description": "A comfortable and stylish classic white t-shirt, perfect for everyday wear.",
+        "price": 25.99,
+        "imageUrl": "https://www.trueclassictees.com/cdn/shop/files/4000_WHITE_21.jpg?v=1741885405&width=710",
+        "category": "T-shirts"
+    },
+    {
+        "_id": "60d0fe4f7d6a4a0004c6a6f2",
+        "name": "Slim Fit Jeans (Blue)",
+        "description": "Durable slim fit jeans with a modern cut in classic blue.",
+        "price": 59.99,
+        "imageUrl": "https://img-1.kwcdn.com/thumbnail/s/d49e477812e0b8ec2dbe96336547aca7_0cc3dfa21c4a.jpg?imageView2/2/w/264/q/70/format/webp",
+        "category": "Pants"
+    },
+    {
+        "_id": "60d0fe4f7d6a4a0004c6a6f3",
+        "name": "Summer Floral Dress",
+        "description": "Light and airy floral dress, perfect for warm weather.",
+        "price": 75.00,
+        "imageUrl": "https://img.ltwebstatic.com/v4/j/pi/2025/04/15/ba/1744707915f5d3f5e8a702dd359d9d95c4e539aded_thumbnail_560x.webp",
+        "category": "Dresses"
+    },
+    {
+        "_id": "60d0fe4f7d6a4a0004c6a6f4",
+        "name": "Casual Hoodie (Grey)",
+        "description": "Comfortable grey hoodie with a front pocket, ideal for lounging.",
+        "price": 45.00,
+        "imageUrl": "https://m.media-amazon.com/images/I/61MiB5fdgML._AC_SX679_.jpg",
+        "category": "Hoodies"
+    },
+    {
+        "_id": "60d0fe4f7d6a4a0004c6a6f5",
+        "name": "Denim Jacket",
+        "description": "Classic denim jacket, a timeless piece for any wardrobe.",
+        "price": 85.00,
+        "imageUrl": "https://assets.theplace.com/image/upload/t_pdp_img_d,f_auto,q_auto,dpr_1.5/v1/ecom/assets/products/tcp/3040295/3040295_339R.png",
+        "category": "Jackets"
+    },
+    
+    {
+        "_id": "60d0fe4f7d6a4a0004c6a6f6",
+        "name": "Sporty Leggings (Black)",
+        "description": "Highwaisted black leggings, perfect for workouts or casual wear.",
+        "price": 35.00,
+        "imageUrl": "https://oldnavy.gapcanada.ca/webcontent/0057/190/297/cn57190297.jpg",
+        "category": "Activewear"
+    },
+    {
+        "_id": "60d0fe4f7d6a4a0004c6a6f7",
+        "name": "Striped Polo Shirt",
+        "description": "Comfortable polo shirt with classic stripes, suitable for various occasions.",
+        "price": 39.99,
+        "imageUrl": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRXSYQeJ-Fvgj_TM2GKQVoZPiKJLhwj7YO_j9LITJGEq_tPIvwwENQeptRII_Sghb-hO0p_0tVgfNW8AVaHZMkAn-neyLOjlsQL6vazQYuGBaA0LDkBr_cgL63bHzQvJhrxA3t5pQ&usqp=CAc",
+        "category": "Polo Shirts"
+    },
+    {
+        "_id": "60d0fe4f7d6a4a0004c6a6f8",
+        "name": "Chino Shorts (Beige)",
+        "description": "Lightweight chino shorts for a casual summer look.",
+        "price": 30.00,
+        "imageUrl": "https://image.uniqlo.com/UQ/ST3/WesternCommon/imagesgoods/458245/item/goods_32_458245_3x4.jpg?width=369",
+        "category": "Shorts"
+    },
+    {
+        "_id": "60d0fe4f7d6a4a0004c6a6f9",
+        "name": "Elegant Maxi Dress",
+        "description": "Long, flowing maxi dress with intricate details, perfect for evenings.",
+        "price": 120.00,
+        "imageUrl": "https://img.ltwebstatic.com/images3_spmp/2024/11/06/57/1730880963d439fb7e0748a9da7ecb597ced219c0c_wk_1731564351_thumbnail_560x.webp",
+        "category": "Dresses"
+    }
+]
