@@ -4,17 +4,19 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
 import { User } from '@/types/user';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+  const { setToken } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-
+  
     // Client-side validation
     if (!username || !password) {
       setError('Please enter both username and password.');
@@ -37,8 +39,8 @@ export default function LoginPage() {
 
       const data = await res.json();
       console.log('Login successful:', data);
+      setToken(data.access_token);
       localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('token', data.access_token);
       router.push('/dashboard/catalogue'); 
     } catch (err) {
       setError('An error occurred. Please try to login again')

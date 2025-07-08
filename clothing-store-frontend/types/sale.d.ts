@@ -1,13 +1,20 @@
-import { Product } from './product';
-
-export interface SaleProduct extends Product {
-    quantity: number;
+// types/sale.ts
+export interface SaleProduct {
+  productId: string;
+  name: string;
+  price: number;
+  quantity: number;
+  imageUrl?: string;
+  description?: string;
+  category?: string;
 }
 
 export interface Sale {
-    _id: string;
-    userId: string;
-    products: SaleProduct[];
-    totalPrice: number | string;
-    saleDate: string;
+  id: string; 
+  userId: string;
+  products: SaleProduct[];
+  totalPrice: number;
+  saleDate: string; 
+  createdAt?: string;
+  updatedAt?: string;
 }

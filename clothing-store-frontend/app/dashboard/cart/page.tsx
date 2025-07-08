@@ -5,29 +5,15 @@ import Image from "next/image";
 import { useCart, CartItem } from "@/hooks/useCart";
 import { User } from "@/types/user";
 import { Sale, SaleProduct } from "@/types/sale";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function CartPage() {
-  const { cartItems, updateCartQuantity, removeFromCart, clearCart } = useCart();
+  const { cartItems, updateCartQuantity, removeFromCart, clearCart } =
+    useCart();
   const [message, setMessage] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    const userData = localStorage.getItem("user");
-    if (userData) {
-      try {
-        const user = JSON.parse(userData) as User;
-        setCurrentUser(user);
-      } catch (e) {
-        console.error("Failed to parse user data from localStorage", e);
-        setCurrentUser(null); // Reset if corrupted
-        setError("Failed to load user data for checkout.");
-      }
-    } else {
-      setError("User not logged in. Please log in to checkout.");
-    }
-  }, []);
-
+  const { user: authUser, token, error: authError } = useAuth();
+  console.log("Auth User:", authUser);
   const calculateTotalPrice = () => {
     let total = 0;
     cartItems.forEach((item: CartItem) => {
@@ -49,7 +35,7 @@ export default function CartPage() {
     productId: string,
     currentQuantity: number
   ) => {
-    updateCartQuantity(productId, currentQuantity - 1); // updateCartQuantity handles removal if <= 0
+    updateCartQuantity(productId, currentQuantity - 1);
   };
 
   const handleRemoveItem = (productId: string) => {
@@ -69,35 +55,38 @@ export default function CartPage() {
       return;
     }
 
-    if (!currentUser || !currentUser._id) {
-      setError("User information not available. Please log in again.");
+    if (!authUser || !authUser._id || !token) {
+      setError(
+        authError || "User information not available. Please log in again."
+      );
       return;
     }
 
-    const productsForSale: SaleProduct[] = [];
+    const productsForSale = cartItems.map((item) => ({
+      productId: item._id,
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity,
+    }));
 
-    for (let i = 0; i < cartItems.length; i++) {
-      const item = cartItems[i];
-      productsForSale.push({
-        _id: item._id,
-        name: item.name,
-        description: item.description,
-        price: item.price,
-        imageUrl: item.imageUrl,
-        category: item.category,
-        quantity: item.quantity,
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/sales`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          products: productsForSale,
+        }),
       });
+      if (res.ok) {
+        clearCart();
+        setMessage("Checkout successful! Your order has been placed.");
+      }
+    } catch (error) {
+      console.error("Error during checkout:", error);
     }
-
-    const saleRecord: Sale = {
-      _id: `sale_${Date.now()}_${currentUser._id}`, // Unique ID for this sale
-      userId: currentUser._id,
-      products: productsForSale,
-      totalPrice: totalPrice,
-      saleDate: new Date().toISOString(),
-    };
-
-    console.log("Simulating checkout. Sale details:", saleRecord);
   };
   return (
     <div className="p-4">

@@ -9,10 +9,10 @@ export default function Home() {
         <h1 className="text-3xl font-bold mb-6 text-gray-800">Welcome to Our Clothing Store!</h1>
         <p className="text-gray-600 mb-8">Please log in or sign up to continue.</p>
         <div className="space-y-4">
-          <Link href="/login" className="block w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition duration-300">
+          <Link href="/login" className="block w-full py-3 px-4 bg-pink-600 text-white font-semibold rounded-md hover:bg-pink-700 transition duration-300">
             Login
           </Link>
-          <Link href="/signup" className="block w-full py-3 px-4 border border-blue-600 text-blue-600 font-semibold rounded-md hover:bg-blue-50 transition duration-300">
+          <Link href="/signup" className="block w-full py-3 px-4 border border-orange-600 text-orange-800 font-semibold rounded-md hover:bg-orange-200 transition duration-300">
             Sign Up
           </Link>
         </div>

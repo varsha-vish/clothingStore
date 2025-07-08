@@ -81,7 +81,10 @@ export default function ProfilePage() {
       if (response.ok) {
         const updatedUserFromServer: User = await response.json();
         setUser(updatedUserFromServer);
-        setFormData(updatedUserFromServer); 
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            ...updatedUserFromServer,
+        })); 
 
         setMessage("Profile updated successfully!");
         setTimeout(() => setMessage(""), 3000);
@@ -133,7 +136,7 @@ export default function ProfilePage() {
             type="text"
             id="_id"
             name="_id"
-            value={user?._id || ""}
+            value={user?._id}
             className="mt-1 block w-full px-3 py-2 border border-gray-200 rounded-md bg-gray-50 text-gray-500 cursor-not-allowed"
             readOnly
           />
@@ -150,7 +153,7 @@ export default function ProfilePage() {
             id="createdAt"
             name="createdAt"
             value={
-              user?.createdAt ? new Date(user.createdAt).toLocaleString() : ""
+              user?.createdAt
             }
             className="mt-1 block w-full px-3 py-2 border border-gray-200 rounded-md bg-gray-50 text-gray-500 cursor-not-allowed"
             readOnly
@@ -168,7 +171,7 @@ export default function ProfilePage() {
             id="updatedAt"
             name="updatedAt"
             value={
-              user?.updatedAt ? new Date(user.updatedAt).toLocaleString() : ""
+              user?.updatedAt
             }
             className="mt-1 block w-full px-3 py-2 border border-gray-200 rounded-md bg-gray-50 text-gray-500 cursor-not-allowed"
             readOnly
@@ -266,9 +269,8 @@ export default function ProfilePage() {
             Phone Number
           </label>
           <input
-            type="text"
-            id="lastName"
-            name="lastName"
+            id="phoneNumber"
+            name="phoneNumber"
             value={formData.phoneNumber || ""}
             onChange={handleChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
@@ -277,7 +279,7 @@ export default function ProfilePage() {
         {/* Save Changes Button */}
         <button
           type="submit"
-          className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
         >
           Save Changes
         </button>

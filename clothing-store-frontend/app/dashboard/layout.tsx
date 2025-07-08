@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { FaShoppingCart, FaUserCircle, FaHistory, FaThLarge, FaSignOutAlt } from 'react-icons/fa';
 import { CartProvider, useCart } from '@/hooks/useCart';
+import { AuthProvider, useAuth } from '@/hooks/useAuth';
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -14,7 +15,8 @@ interface DashboardLayoutProps {
 function DashboardLayout({ children }: DashboardLayoutProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const { cartItems } = useCart(); // Use the cart hook
+  const { cartItems } = useCart();
+  const { user, isLoading, logout } = useAuth();
 
   // Client-side authentication check
   useEffect(() => {
@@ -22,13 +24,21 @@ function DashboardLayout({ children }: DashboardLayoutProps) {
     if (!isLoggedIn) {
       router.push('/'); // Redirect to home/login if not logged in
     }
-  }, [router]);
+  }, [user, isLoading, router]);
 
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('currentUser');
     router.push('/');
   };
+
+   if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-100">
+        <p className="text-xl text-gray-700">Loading application...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -62,9 +72,9 @@ function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="mt-auto">
           <button
             onClick={handleLogout}
-            className="flex items-center w-full p-3 rounded-lg text-red-400 hover:bg-gray-700 transition-colors"
+            className="flex items-center w-full p-3 rounded-lg text-red-400 hover:bg-gray-700 transition-colors cursor-pointer"
           >
-            <FaSignOutAlt className="mr-3" />
+            <FaSignOutAlt className="mr-3 " />
             Logout
           </button>
         </div>
@@ -74,9 +84,9 @@ function DashboardLayout({ children }: DashboardLayoutProps) {
       <div className="flex-1 flex flex-col">
         {/* Top App Bar */}
         <header className="bg-white shadow-md p-4 flex justify-between items-center z-10">
-          <h1 className="text-xl font-semibold text-gray-800">Dashboard</h1>
+          <h1 className="text-xl font-semibold text-pink-800">New season, new slay – let’s shop!</h1>
           <div className="relative">
-            <Link href="/dashboard/cart" className="text-gray-600 hover:text-blue-600 transition-colors">
+            <Link href="/dashboard/cart" className="text-gray-600 hover:text-gray-900 transition-colors">
               <FaShoppingCart className="text-2xl" />
               {cartItems.length > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
@@ -98,8 +108,10 @@ function DashboardLayout({ children }: DashboardLayoutProps) {
 
 export default function DashboardLayoutWrapper({ children }: DashboardLayoutProps) {
   return (
-    <CartProvider>
-      <DashboardLayout>{children}</DashboardLayout>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider> 
+        <DashboardLayout>{children}</DashboardLayout>
+      </CartProvider>
+    </AuthProvider>
   );
 }
