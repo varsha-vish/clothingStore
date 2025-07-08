@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
-import { User } from '@/types/user';
 
 export default function SignupPage() {
   const [username, setUsername] = useState('');
@@ -50,7 +49,7 @@ export default function SignupPage() {
 
 
     } catch (err) {
-      setError('Error occurred during sign up. Please try again!')
+      setError(`Error occurred during sign up. Please try again! ${err}`)
     }
     
   };

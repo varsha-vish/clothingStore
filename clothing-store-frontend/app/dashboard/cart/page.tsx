@@ -1,10 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { useCart, CartItem } from "@/hooks/useCart";
-import { User } from "@/types/user";
-import { Sale, SaleProduct } from "@/types/sale";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function CartPage() {
