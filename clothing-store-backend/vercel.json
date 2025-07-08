@@ -1,20 +1,13 @@
 {
   "version": 2,
+  
   "builds": [
-    {
-      "src": "src/main.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["dist/**"]
-      }
-    }
+    { "src": "api/index.ts", "use": "@vercel/node" }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "src/main.js"
-    }
+    { "src": "/(.*)", "dest": "api/index.ts" }
   ],
+
   "installCommand": "npm install",
   "buildCommand": "nest build",
   "outputDirectory": "dist"
