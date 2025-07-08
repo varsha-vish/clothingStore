@@ -1,28 +1,34 @@
-import { createServer, proxy } from 'vercel-node-serverless';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../src/app.module';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import express from 'express';
+import { ValidationPipe } from '@nestjs/common';
+import { Request, Response } from 'express';
 
-const expressApp = express();
+const server = express();
+let nestApp: any;
+let isInitialized = false;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
+  nestApp = await NestFactory.create(AppModule, new ExpressAdapter(server));
 
-  app.enableCors();
-  app.useGlobalPipes(
-    new (require('@nestjs/common').ValidationPipe)({
+  nestApp.useGlobalPipes(
+    new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
     }),
   );
 
-  await app.init();
+  nestApp.enableCors();
+  await nestApp.init();
+  isInitialized = true;
 }
 
-bootstrap();
-
-
-
-export default createServer(expressApp);
+// Vercel's handler
+export default async function handler(req: Request, res: Response) {
+  if (!isInitialized) {
+    await bootstrap();
+  }
+  return server(req, res);
+}
