@@ -133,7 +133,7 @@ export default function ProductDetailPage() {
           {/* Add to Cart Button */}
           <button
             onClick={handleAddToCart}
-            className="flex-grow bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 transition-colors shadow-md text-lg font-semibold"
+            className="flex-grow bg-orange-600 text-white py-3 px-6 rounded-md hover:bg-orange-700 transition-colors shadow-md text-lg font-semibold cursor-pointer"
           >
             Add to Cart
           </button>

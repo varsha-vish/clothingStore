@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Product } from '@/types/product'; 
 import { useCart } from '@/hooks/useCart';
+import Link from 'next/link';
 
 interface ProductCardProps {
   product: Product;
@@ -19,6 +20,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     <div
       className="relative bg-white rounded-lg shadow-md overflow-hidden transform transition-transform duration-200 hover:scale-[1.02]"
     >
+      <Link href={`/dashboard/catalogue/${product._id}`} className="group">
       <div className="w-full h-48 relative">
         <Image
           src={product.imageUrl} 
@@ -31,10 +33,13 @@ export default function ProductCard({ product }: ProductCardProps) {
           }}
         />
       </div>
+      </Link>
       <div className="p-4">
+        <Link href={`/dashboard/catalogue/${product._id}`} className="group">
         <h3 className="text-lg font-semibold text-gray-800 truncate mb-1">
           {product.name}
         </h3>
+        </Link>
         <p className="text-gray-600 text-sm mb-3">{product.category}</p>
         <p className="text-xl font-bold text-green-500 mb-4">
           ${product.price.toFixed(2)}
