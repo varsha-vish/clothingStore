@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./clothing-store-backend
+      dockerfile: Dockerfile
+    container_name: backend
+    env_file: ./clothing-store-backend/.env
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./clothing-store-backend:/app
+    command: npm run start:dev
+  
+  frontend:
+    build:
+      context: ./clothing-store-frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    env_file: ./clothing-store-frontend/.env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./clothing-store-frontend:/app
+      - /app/node_modules   
+      - /app/.next
+    depends_on:
+      - backend
+    command: npm run dev
